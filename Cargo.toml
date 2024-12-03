@@ -4,5 +4,14 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-clap = "4.5.21"
+clap = { version = "4.5.21", features = ["derive"] }
 meowith-connector = { git = "https://github.com/Meowith/meowith-connector-rust.git" }
+uuid = "1.11.0"
+serde = { version = "1.0.215", features = ["derive"] }
+serde_yaml = "0.9.34"
+dirs = "5.0.1"
+repr = "0.7.0"
+colored = "2.1.0"
+cli-table = "0.4.9"
+chrono = "0.4.38"
+tokio = { version = "1.0.0", features = ["rt", "rt-multi-thread", "macros"] }
