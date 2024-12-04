@@ -14,6 +14,7 @@ use crate::cli::range_from_str;
 use crate::commands::all_directories::list_directories;
 use crate::commands::bucket_info::fetch_bucket_info;
 use crate::commands::delete_directory::delete_directory;
+use crate::commands::delete_file::delete_file;
 use crate::commands::directory::list_directory_command;
 use crate::commands::download::download_file;
 use crate::commands::files::list_files;
@@ -134,6 +135,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
         } => {
             let connector = connector(content_store)?;
             upload_file(connector, local_path, remote_path).await?;
+        }
+        MeowithSubCommand::DeleteFile { path } => {
+            let connector = connector(content_store)?;
+            delete_file(connector, path).await?;
         }
     }
 

@@ -36,6 +36,11 @@ pub enum MeowithSubCommand {
         #[arg(short, long, aliases = ["rp"])]
         remote_path: Option<String>,
     },
+    #[clap(aliases = ["del"])]
+    DeleteFile {
+        #[arg(num_args(1), required = true)]
+        path: String,
+    },
     #[clap(aliases = ["md"])]
     /// Creates directory with given path
     Mkdir {
