@@ -11,7 +11,7 @@ pub fn map_entity_cell(entity: Entity) -> Vec<CellStruct> {
             entity.name.white()
         }
         .cell(),
-        if entity.dir.is_some() {
+        if entity.dir.is_some() && entity.dir.clone().unwrap().to_u128_le() != 0 {
             entity.dir.unwrap().to_string()
         } else {
             "/".to_string()
