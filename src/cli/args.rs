@@ -28,14 +28,13 @@ pub enum MeowithSubCommand {
         #[arg(num_args(1), required = true)]
         node: String,
     },
-
     #[clap(aliases = ["md"])]
     /// Creates directory with given path
     Mkdir {
         #[arg(num_args(1), required = true)]
         path: String
     },
-    #[clap(aliases = ["rd", "mv"])]
+    #[clap(aliases = ["rd", "mvd"])]
     /// Allows to rename (therefore also move) directories
     RenameDirectory {
         #[arg(num_args(1), required = true)]
@@ -43,7 +42,6 @@ pub enum MeowithSubCommand {
         #[arg(num_args(1), required = true)]
         to: String
     },
-
     #[clap(aliases = ["get", "dl"])]
     /// Allows to download a file with the given path
     Download {
@@ -57,6 +55,14 @@ pub enum MeowithSubCommand {
     DeleteDirectory {
         #[arg(num_args(1), required = true)]
         path: String,
+    },
+    #[clap(aliases = ["rf", "mv"])]
+    /// Allows to rename (therefore also move) files
+    RenameFile {
+        #[arg(num_args(1), required = true)]
+        from: String,
+        #[arg(num_args(1), required = true)]
+        to: String
     },
     #[clap(aliases = ["info", "i", "pwd"])]
     /// Displays current bucket info

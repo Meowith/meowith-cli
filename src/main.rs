@@ -19,6 +19,7 @@ use crate::commands::download::download_file;
 use crate::commands::files::list_files;
 use crate::commands::mkdir::mkdir;
 use crate::commands::rename_directory::rename_directory;
+use crate::commands::rename_file::rename_file;
 use crate::commands::stat_resource::stat_resource;
 use crate::types::app::AppInfo;
 
@@ -121,6 +122,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
         MeowithSubCommand::Download { path, output } => {
             let connector = connector(content_store)?;
             download_file(connector, path, output).await?;
+        }
+        MeowithSubCommand::RenameFile { from, to } => {
+            let connector = connector(content_store)?;
+            rename_file(connector, from, to).await?;
         }
     }
 
