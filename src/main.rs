@@ -10,6 +10,7 @@ use crate::cli::args::{MeowithCommand, MeowithSubCommand};
 use crate::cli::connector::connector;
 use crate::cli::range_from_str;
 use crate::commands::all_directories::list_directories;
+use crate::commands::bucket_info::fetch_bucket_info;
 use crate::commands::directory::list_directory_command;
 use crate::commands::files::list_files;
 use crate::commands::stat_resource::stat_resource;
@@ -94,6 +95,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
         MeowithSubCommand::StatResource { path, verbose } => {
             let connector = connector(content_store)?;
             stat_resource(connector, path, verbose).await?;
+        }
+        MeowithSubCommand::BucketInfo { verbose } => {
+            let connector = connector(content_store)?;
+            fetch_bucket_info(connector, verbose).await?;
         }
     }
 

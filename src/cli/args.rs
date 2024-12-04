@@ -28,7 +28,14 @@ pub enum MeowithSubCommand {
         #[arg(num_args(1), required = true)]
         node: String,
     },
+    #[clap(aliases = ["info", "i", "pwd"])]
+    /// Display current bucket info
+    BucketInfo {
+        #[arg(short, long)]
+        verbose: bool,
+    },
     #[clap(aliases = ["stat"])]
+    /// Allows to stat given resource
     StatResource {
         #[arg(num_args(1), required = true)]
         path: String,
@@ -36,6 +43,7 @@ pub enum MeowithSubCommand {
         verbose: bool,
     },
     #[clap(aliases = ["ld"])]
+    /// Lists all directories in a bucket
     ListDirectories {
         #[arg(short, long)]
         range: Option<String>,
@@ -43,6 +51,7 @@ pub enum MeowithSubCommand {
         verbose: bool,
     },
     #[clap(aliases = ["lf"])]
+    /// Lists all files in a bucket
     ListFiles {
         #[arg(short, long)]
         range: Option<String>,
@@ -50,6 +59,7 @@ pub enum MeowithSubCommand {
         verbose: bool,
     },
     #[clap(aliases = ["ls"])]
+    /// Shows contents of provided directory
     Directory {
         #[arg(num_args(1), required = true)]
         path: String,

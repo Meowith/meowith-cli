@@ -1,5 +1,6 @@
-use crate::commands::{file_table_header, handle_error, map_file_cell};
+use crate::commands::handle_error;
 use crate::format::data::{format_bytes, format_short_date_with_time};
+use crate::format::table::{file_table_header, map_entity_cell};
 use cli_table::{print_stdout, Style, Table};
 use meowith_connector::connector::connector::MeowithConnector;
 use std::error::Error;
@@ -13,7 +14,7 @@ pub async fn stat_resource(
 
     let entity = handle_error(response).unwrap();
     if verbose {
-        let table = vec![map_file_cell(entity)]
+        let table = vec![map_entity_cell(entity)]
             .table()
             .title(file_table_header())
             .bold(true);

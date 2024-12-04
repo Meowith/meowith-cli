@@ -1,37 +1,34 @@
-use crate::format::data::{format_bytes, format_short_date_with_time};
-use cli_table::{Cell, CellStruct, Style};
+use crate::format::table::{file_table_header, map_entity_cell};
+use cli_table::{print_stdout, Style, Table};
 use colored::Colorize;
 use meowith_connector::dto::response::Entity;
 use meowith_connector::error::{ConnectorError, ConnectorResponse, NodeClientError};
+use std::error::Error;
 
 pub mod all_directories;
+pub mod bucket_info;
 pub mod directory;
 pub mod files;
 pub mod stat_resource;
 
-pub fn file_table_header() -> Vec<CellStruct> {
-    vec![
-        "Name".cell().bold(true),
-        "Location".cell().bold(true),
-        "Size".cell().bold(true),
-        "Created".cell().bold(true),
-        "Last modified".cell().bold(true),
-    ]
-}
-
-pub fn map_file_cell(entity: Entity) -> Vec<CellStruct> {
-    vec![
-        entity.name.cell(),
-        if entity.dir.is_some() {
-            entity.dir.unwrap().to_string()
-        } else {
-            "/".to_string()
+pub fn display_formatted_entities(
+    entities: Vec<Entity>,
+    verbose: bool,
+) -> Result<(), Box<dyn Error>> {
+    if verbose {
+        let mut table = Vec::new();
+        for entity in entities {
+            table.push(map_entity_cell(entity));
         }
-        .cell(),
-        format_bytes(entity.size).cell(),
-        format_short_date_with_time(entity.created).cell(),
-        format_short_date_with_time(entity.last_modified).cell(),
-    ]
+        let table = table.table().title(file_table_header()).bold(true);
+
+        print_stdout(table)?;
+    } else {
+        for entity in entities {
+            println!("{}", entity.name);
+        }
+    }
+    Ok(())
 }
 
 pub fn handle_error<T>(response: ConnectorResponse<T>) -> ConnectorResponse<T> {
