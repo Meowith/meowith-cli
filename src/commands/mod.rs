@@ -7,14 +7,15 @@ use std::error::Error;
 
 pub mod all_directories;
 pub mod bucket_info;
+pub mod delete_directory;
 pub mod directory;
+pub mod download;
 pub mod files;
-pub mod stat_resource;
 pub mod mkdir;
 pub mod rename_directory;
-pub mod delete_directory;
-pub mod download;
 pub mod rename_file;
+pub mod stat_resource;
+pub mod upload;
 
 pub fn display_formatted_entities(
     entities: Vec<Entity>,

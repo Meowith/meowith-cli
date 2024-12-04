@@ -28,11 +28,19 @@ pub enum MeowithSubCommand {
         #[arg(num_args(1), required = true)]
         node: String,
     },
+    #[clap(aliases = ["up", "upl", "send", "s"])]
+    /// Allows to upload a file using oneshot implementation
+    Upload {
+        #[arg(num_args(1), required = true)]
+        local_path: String,
+        #[arg(short, long, aliases = ["rp"])]
+        remote_path: Option<String>,
+    },
     #[clap(aliases = ["md"])]
     /// Creates directory with given path
     Mkdir {
         #[arg(num_args(1), required = true)]
-        path: String
+        path: String,
     },
     #[clap(aliases = ["rd", "mvd"])]
     /// Allows to rename (therefore also move) directories
@@ -40,7 +48,7 @@ pub enum MeowithSubCommand {
         #[arg(num_args(1), required = true)]
         from: String,
         #[arg(num_args(1), required = true)]
-        to: String
+        to: String,
     },
     #[clap(aliases = ["get", "dl"])]
     /// Allows to download a file with the given path
@@ -62,7 +70,7 @@ pub enum MeowithSubCommand {
         #[arg(num_args(1), required = true)]
         from: String,
         #[arg(num_args(1), required = true)]
-        to: String
+        to: String,
     },
     #[clap(aliases = ["info", "i", "pwd"])]
     /// Displays current bucket info

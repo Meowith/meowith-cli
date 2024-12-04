@@ -858,6 +858,7 @@ dependencies = [
  "dirs",
  "meowith-connector",
  "repr",
+ "reqwest",
  "serde",
  "serde_yaml",
  "tokio",

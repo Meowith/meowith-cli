@@ -21,6 +21,7 @@ use crate::commands::mkdir::mkdir;
 use crate::commands::rename_directory::rename_directory;
 use crate::commands::rename_file::rename_file;
 use crate::commands::stat_resource::stat_resource;
+use crate::commands::upload::upload_file;
 use crate::types::app::AppInfo;
 
 mod auth;
@@ -126,6 +127,13 @@ async fn main() -> Result<(), Box<dyn Error>> {
         MeowithSubCommand::RenameFile { from, to } => {
             let connector = connector(content_store)?;
             rename_file(connector, from, to).await?;
+        }
+        MeowithSubCommand::Upload {
+            local_path,
+            remote_path,
+        } => {
+            let connector = connector(content_store)?;
+            upload_file(connector, local_path, remote_path).await?;
         }
     }
 
