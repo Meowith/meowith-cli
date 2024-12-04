@@ -1,10 +1,10 @@
-use std::error::Error;
-use cli_table::{Cell, print_stdout, Style, Table};
+use crate::commands::handle_error;
+use crate::format::data::{format_bytes, format_short_date_with_time};
+use cli_table::{print_stdout, Cell, Style, Table};
 use colored::Colorize;
 use meowith_connector::connector::connector::MeowithConnector;
 use meowith_connector::dto::range::Range;
-use crate::commands::handle_error;
-use crate::format::data::{format_bytes, format_short_date_with_time};
+use std::error::Error;
 
 pub async fn list_directories(
     connector: MeowithConnector,
@@ -23,7 +23,8 @@ pub async fn list_directories(
                     entity.dir.unwrap().to_string()
                 } else {
                     "root".to_string()
-                }.cell(),
+                }
+                .cell(),
                 format_bytes(entity.size).cell(),
                 format_short_date_with_time(entity.created).cell(),
                 format_short_date_with_time(entity.last_modified).cell(),

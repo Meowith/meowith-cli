@@ -28,6 +28,13 @@ pub enum MeowithSubCommand {
         #[arg(num_args(1), required = true)]
         node: String,
     },
+    #[clap(aliases = ["stat"])]
+    StatResource {
+        #[arg(num_args(1), required = true)]
+        path: String,
+        #[arg(short, long)]
+        verbose: bool,
+    },
     #[clap(aliases = ["ld"])]
     ListDirectories {
         #[arg(short, long)]

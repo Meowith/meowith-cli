@@ -1,10 +1,10 @@
+use crate::commands::handle_error;
 use crate::format::data::{format_bytes, format_short_date_with_time};
 use cli_table::{print_stdout, Cell, Style, Table};
 use colored::Colorize;
 use meowith_connector::connector::connector::MeowithConnector;
 use meowith_connector::dto::range::Range;
 use std::error::Error;
-use crate::commands::handle_error;
 
 pub async fn list_directory_command(
     connector: MeowithConnector,

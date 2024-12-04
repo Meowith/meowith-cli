@@ -12,6 +12,7 @@ use crate::cli::range_from_str;
 use crate::commands::all_directories::list_directories;
 use crate::commands::directory::list_directory_command;
 use crate::commands::files::list_files;
+use crate::commands::stat_resource::stat_resource;
 use crate::types::app::AppInfo;
 
 mod auth;
@@ -65,7 +66,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 range.map(|range| range_from_str(range.as_str()).expect("Invalid range provided")),
                 verbose,
             )
-                .await?;
+            .await?;
         }
         MeowithSubCommand::ListFiles { range, verbose } => {
             let connector = connector(content_store)?;
@@ -89,6 +90,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 verbose,
             )
             .await?;
+        }
+        MeowithSubCommand::StatResource { path, verbose } => {
+            let connector = connector(content_store)?;
+            stat_resource(connector, path, verbose).await?;
         }
     }
 
