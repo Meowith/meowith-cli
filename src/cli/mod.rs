@@ -15,7 +15,7 @@ pub fn range_from_str(input: &str) -> Option<Range> {
         return None;
     }
 
-    let start = match parts.get(0) {
+    let start = match parts.first() {
         Some(&"") => None,
         Some(s) => s.parse::<i32>().ok(),
         None => None,

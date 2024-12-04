@@ -10,7 +10,6 @@ uuid = "1.11.0"
 serde = { version = "1.0.215", features = ["derive"] }
 serde_yaml = "0.9.34"
 dirs = "5.0.1"
-repr = "0.7.0"
 colored = "2.1.0"
 cli-table = "0.4.9"
 chrono = "0.4.38"

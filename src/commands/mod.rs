@@ -8,6 +8,7 @@ use std::error::Error;
 pub mod all_directories;
 pub mod bucket_info;
 pub mod delete_directory;
+pub mod delete_file;
 pub mod directory;
 pub mod download;
 pub mod files;
@@ -16,7 +17,6 @@ pub mod rename_directory;
 pub mod rename_file;
 pub mod stat_resource;
 pub mod upload;
-pub mod delete_file;
 
 pub fn display_formatted_entities(
     entities: Vec<Entity>,
@@ -47,7 +47,7 @@ pub fn handle_error<T>(response: ConnectorResponse<T>) -> ConnectorResponse<T> {
                     NodeClientError::NotFound => "Resource was not found".to_string(),
                     NodeClientError::BadAuth => "Invalid token".to_string(),
                     _ => {
-                        format!("Server returned error: {}", err.to_string())
+                        format!("Server returned error: {}", err)
                     }
                 }
                 .bright_red();

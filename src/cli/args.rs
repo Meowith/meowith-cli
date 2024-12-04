@@ -37,6 +37,7 @@ pub enum MeowithSubCommand {
         remote_path: Option<String>,
     },
     #[clap(aliases = ["del"])]
+    /// Allows to delete a file
     DeleteFile {
         #[arg(num_args(1), required = true)]
         path: String,

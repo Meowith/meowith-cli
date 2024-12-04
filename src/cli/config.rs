@@ -34,7 +34,7 @@ impl ConfigProperties {
         Ok(())
     }
 
-    pub fn read(&self) -> Result<Self, Box<dyn Error>> {
+    pub fn read(default_config: Option<&ConfigProperties>) -> Result<Self, Box<dyn Error>> {
         let config = home_dir().unwrap().join(MEOWITH_CONFIG);
         let mut init = false;
         let config = match fs::canonicalize(&config) {
@@ -48,23 +48,28 @@ impl ConfigProperties {
         }?;
         let mut file = OpenOptions::new()
             .write(true)
-            .create(true)
             .read(true)
             .open(&config)?;
         if init {
-            let default_config_yaml = serde_yaml::to_string(&self)?;
+            let default_config = default_config
+                .unwrap_or(&ConfigProperties {
+                    store_type: ContentStoreType::Local,
+                    token: None,
+                    app_info: None,
+                });
+            let default_config_yaml = serde_yaml::to_string(default_config)?;
             file.write_all(default_config_yaml.as_bytes())?;
             file.sync_all()?;
 
             Ok(ConfigProperties {
-                store_type: self.store_type.clone(),
-                token: self.token.clone(),
-                app_info: self.app_info.clone(),
+                store_type: default_config.store_type.clone(),
+                token: default_config.token.clone(),
+                app_info: default_config.app_info.clone(),
             })
         } else {
             let mut buf = Vec::new();
             file.read_to_end(&mut buf)?;
-            Ok(serde_yaml::from_slice::<ConfigProperties>(&buf.as_slice())?)
+            Ok(serde_yaml::from_slice::<ConfigProperties>(buf.as_slice())?)
         }
     }
 }

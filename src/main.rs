@@ -37,12 +37,7 @@ const MEOWITH_CONFIG: &str = ".meowith-config.yml";
 async fn main() -> Result<(), Box<dyn Error>> {
     let args: MeowithCommand = MeowithCommand::parse();
 
-    let global_config = ConfigProperties {
-        store_type: ContentStoreType::Local,
-        token: None,
-        app_info: None,
-    }
-    .read()?;
+    let global_config = ConfigProperties::read(None)?;
 
     let content_store_type = global_config.store_type.clone();
     let content_store: Box<dyn ContentStore> = match content_store_type {

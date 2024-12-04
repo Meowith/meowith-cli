@@ -4,7 +4,6 @@ use std::error::Error;
 pub mod local;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-#[repr(u8)]
 pub enum ContentStoreType {
     Local,
 }

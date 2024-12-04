@@ -10,7 +10,7 @@ pub struct LocalStore {
 
 impl ContentStore for LocalStore {
     fn set_token(&self, token: String) -> Result<(), Box<dyn Error>> {
-        let config = self.config.read()?;
+        let config = ConfigProperties::read(Some(&self.config))?;
         ConfigProperties {
             store_type: config.store_type.clone(),
             token: Some(token),
@@ -20,7 +20,7 @@ impl ContentStore for LocalStore {
     }
 
     fn set_app(&self, app_info: AppInfo) -> Result<(), Box<dyn Error>> {
-        let config = self.config.read()?;
+        let config = ConfigProperties::read(Some(&self.config))?;
         ConfigProperties {
             store_type: config.store_type.clone(),
             token: config.token.clone(),
@@ -30,10 +30,10 @@ impl ContentStore for LocalStore {
     }
 
     fn get_app(&self) -> Result<Option<AppInfo>, Box<dyn Error>> {
-        self.config.read().map(|config| config.app_info)
+        ConfigProperties::read(Some(&self.config)).map(|config| config.app_info)
     }
 
     fn get_token(&self) -> Result<Option<String>, Box<dyn Error>> {
-        self.config.read().map(|config| config.token)
+        ConfigProperties::read(Some(&self.config)).map(|config| config.token)
     }
 }

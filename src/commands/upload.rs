@@ -19,7 +19,7 @@ pub async fn upload_file(
     let file_metadata = file
         .metadata()
         .expect("Error accessing local file metadata");
-    let remote_path = remote_path.or(Some(format!("/{}", file_name))).unwrap();
+    let remote_path = remote_path.unwrap_or(format!("/{}", file_name));
     let mut bytes = Vec::new();
     file.read_to_end(&mut bytes)?;
     let response = connector

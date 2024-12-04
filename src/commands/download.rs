@@ -11,12 +11,13 @@ pub async fn download_file(
 ) -> Result<(), Box<dyn Error>> {
     let response = connector.download_file(path.as_str()).await;
     let response = handle_error(response).unwrap();
-    let output = output.or(Some(response.name)).unwrap();
+    let output = output.unwrap_or(response.name);
     let mut file = OpenOptions::new()
         .write(true)
         .create(true)
+        .truncate(false)
         .open(&output)
-        .expect(format!("Could not write into file {}", output).as_str());
+        .unwrap_or_else(|_| panic!("Could not write into file {}", output));
     let bytes = response.response.bytes().await?;
     file.write_all(&bytes)?;
     file.sync_all()?;
