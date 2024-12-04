@@ -1,3 +1,5 @@
+extern crate core;
+
 use std::env;
 use std::error::Error;
 
@@ -13,6 +15,7 @@ use crate::commands::all_directories::list_directories;
 use crate::commands::bucket_info::fetch_bucket_info;
 use crate::commands::delete_directory::delete_directory;
 use crate::commands::directory::list_directory_command;
+use crate::commands::download::download_file;
 use crate::commands::files::list_files;
 use crate::commands::mkdir::mkdir;
 use crate::commands::rename_directory::rename_directory;
@@ -114,6 +117,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
         MeowithSubCommand::DeleteDirectory { path } => {
             let connector = connector(content_store)?;
             delete_directory(connector, path).await?;
+        }
+        MeowithSubCommand::Download { path, output } => {
+            let connector = connector(content_store)?;
+            download_file(connector, path, output).await?;
         }
     }
 

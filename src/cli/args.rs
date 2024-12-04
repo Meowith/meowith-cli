@@ -43,6 +43,15 @@ pub enum MeowithSubCommand {
         #[arg(num_args(1), required = true)]
         to: String
     },
+
+    #[clap(aliases = ["get", "dl"])]
+    /// Allows to download a file with the given path
+    Download {
+        #[arg(num_args(1), required = true)]
+        path: String,
+        #[arg(short, long)]
+        output: Option<String>,
+    },
     #[clap(aliases = ["dd"])]
     /// Deletes given directory
     DeleteDirectory {

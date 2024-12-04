@@ -13,6 +13,7 @@ pub mod stat_resource;
 pub mod mkdir;
 pub mod rename_directory;
 pub mod delete_directory;
+pub mod download;
 
 pub fn display_formatted_entities(
     entities: Vec<Entity>,
