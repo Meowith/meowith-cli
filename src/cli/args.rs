@@ -28,8 +28,29 @@ pub enum MeowithSubCommand {
         #[arg(num_args(1), required = true)]
         node: String,
     },
+
+    #[clap(aliases = ["md"])]
+    /// Creates directory with given path
+    Mkdir {
+        #[arg(num_args(1), required = true)]
+        path: String
+    },
+    #[clap(aliases = ["rd", "mv"])]
+    /// Allows to rename (therefore also move) directories
+    RenameDirectory {
+        #[arg(num_args(1), required = true)]
+        from: String,
+        #[arg(num_args(1), required = true)]
+        to: String
+    },
+    #[clap(aliases = ["dd"])]
+    /// Deletes given directory
+    DeleteDirectory {
+        #[arg(num_args(1), required = true)]
+        path: String,
+    },
     #[clap(aliases = ["info", "i", "pwd"])]
-    /// Display current bucket info
+    /// Displays current bucket info
     BucketInfo {
         #[arg(short, long)]
         verbose: bool,

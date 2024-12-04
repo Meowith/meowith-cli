@@ -11,8 +11,11 @@ use crate::cli::connector::connector;
 use crate::cli::range_from_str;
 use crate::commands::all_directories::list_directories;
 use crate::commands::bucket_info::fetch_bucket_info;
+use crate::commands::delete_directory::delete_directory;
 use crate::commands::directory::list_directory_command;
 use crate::commands::files::list_files;
+use crate::commands::mkdir::mkdir;
+use crate::commands::rename_directory::rename_directory;
 use crate::commands::stat_resource::stat_resource;
 use crate::types::app::AppInfo;
 
@@ -99,6 +102,18 @@ async fn main() -> Result<(), Box<dyn Error>> {
         MeowithSubCommand::BucketInfo { verbose } => {
             let connector = connector(content_store)?;
             fetch_bucket_info(connector, verbose).await?;
+        }
+        MeowithSubCommand::Mkdir { path } => {
+            let connector = connector(content_store)?;
+            mkdir(connector, path).await?;
+        }
+        MeowithSubCommand::RenameDirectory { from, to } => {
+            let connector = connector(content_store)?;
+            rename_directory(connector, from, to).await?;
+        }
+        MeowithSubCommand::DeleteDirectory { path } => {
+            let connector = connector(content_store)?;
+            delete_directory(connector, path).await?;
         }
     }
 
