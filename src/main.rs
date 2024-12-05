@@ -12,6 +12,7 @@ use crate::cli::args::{MeowithCommand, MeowithSubCommand};
 use crate::cli::connector::connector;
 use crate::cli::range_from_str;
 use crate::commands::all_directories::list_directories;
+use crate::commands::auth::set_token;
 use crate::commands::bucket_info::fetch_bucket_info;
 use crate::commands::delete_directory::delete_directory;
 use crate::commands::delete_file::delete_file;
@@ -47,8 +48,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
     };
 
     match args.command {
-        MeowithSubCommand::Auth { token } => {
-            content_store.set_token(token)?;
+        MeowithSubCommand::Auth => {
+            set_token(&content_store)?;
         }
         MeowithSubCommand::Use {
             app_id,

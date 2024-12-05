@@ -17,6 +17,7 @@ pub mod rename_directory;
 pub mod rename_file;
 pub mod stat_resource;
 pub mod upload;
+pub mod auth;
 
 pub fn display_formatted_entities(
     entities: Vec<Entity>,

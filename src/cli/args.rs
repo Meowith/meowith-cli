@@ -14,10 +14,7 @@ pub struct MeowithCommand {
 pub enum MeowithSubCommand {
     #[clap(aliases = ["a"])]
     /// Allows to set token for future operations
-    Auth {
-        #[arg(num_args(1), required = true)]
-        token: String,
-    },
+    Auth,
     #[clap(aliases = ["u"])]
     /// Allows to set app and bucket id for future operations
     Use {
