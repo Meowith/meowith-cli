@@ -108,8 +108,8 @@ pub enum MeowithSubCommand {
     #[clap(aliases = ["ls"])]
     /// Shows contents of provided directory
     Directory {
-        #[arg(num_args(1), required = true)]
-        path: String,
+        #[arg(num_args(1), required = false)]
+        path: Option<String>,
         #[arg(short, long)]
         range: Option<String>,
         #[arg(short, long)]

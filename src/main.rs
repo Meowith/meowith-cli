@@ -91,7 +91,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
             let connector = connector(content_store)?;
             list_directory_command(
                 connector,
-                path,
+                path.unwrap_or("/".to_string()),
                 range.map(|range| range_from_str(range.as_str()).expect("Invalid range provided")),
                 verbose,
             )
