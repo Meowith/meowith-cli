@@ -26,10 +26,10 @@ impl ConfigProperties {
             }
             _ => Err(ErrorKind::Other.into()),
         }?;
-        let mut file = OpenOptions::new().write(true).open(&config)?;
-        let default_config_yaml = serde_yaml::to_string(&self)?;
-        file.write_all(default_config_yaml.as_bytes())?;
-        file.sync_all()?;
+            let mut file = OpenOptions::new().write(true).truncate(true).open(&config)?;
+            let default_config_yaml = serde_yaml::to_string(&self)?;
+            file.write_all(default_config_yaml.as_bytes())?;
+            file.sync_all()?;
 
         Ok(())
     }
