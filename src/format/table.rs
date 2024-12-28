@@ -5,9 +5,7 @@ use meowith_connector::dto::response::Entity;
 
 pub fn map_entity_cell(entity: Entity) -> Vec<CellStruct> {
     vec![
-        if entity.is_dir {
-            "dir"
-        } else { "file" }.cell(),
+        if entity.is_dir { "dir" } else { "file" }.cell(),
         if entity.is_dir {
             format!("{} ({})", entity.name, entity.dir_id.unwrap()).bright_green()
         } else {

@@ -26,10 +26,13 @@ impl ConfigProperties {
             }
             _ => Err(ErrorKind::Other.into()),
         }?;
-            let mut file = OpenOptions::new().write(true).truncate(true).open(&config)?;
-            let default_config_yaml = serde_yaml::to_string(&self)?;
-            file.write_all(default_config_yaml.as_bytes())?;
-            file.sync_all()?;
+        let mut file = OpenOptions::new()
+            .write(true)
+            .truncate(true)
+            .open(&config)?;
+        let default_config_yaml = serde_yaml::to_string(&self)?;
+        file.write_all(default_config_yaml.as_bytes())?;
+        file.sync_all()?;
 
         Ok(())
     }
@@ -46,17 +49,13 @@ impl ConfigProperties {
             }
             _ => Err(ErrorKind::Other.into()),
         }?;
-        let mut file = OpenOptions::new()
-            .write(true)
-            .read(true)
-            .open(&config)?;
+        let mut file = OpenOptions::new().write(true).read(true).open(&config)?;
         if init {
-            let default_config = default_config
-                .unwrap_or(&ConfigProperties {
-                    store_type: ContentStoreType::Local,
-                    token: None,
-                    app_info: None,
-                });
+            let default_config = default_config.unwrap_or(&ConfigProperties {
+                store_type: ContentStoreType::Local,
+                token: None,
+                app_info: None,
+            });
             let default_config_yaml = serde_yaml::to_string(default_config)?;
             file.write_all(default_config_yaml.as_bytes())?;
             file.sync_all()?;

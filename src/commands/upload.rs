@@ -1,9 +1,8 @@
 use crate::commands::handle_error;
 use meowith_connector::connector::connector::MeowithConnector;
 use std::error::Error;
-use std::fs::OpenOptions;
-use std::io::Read;
 use std::path::Path;
+use tokio::fs::OpenOptions;
 
 pub async fn upload_file(
     connector: MeowithConnector,
@@ -15,16 +14,15 @@ pub async fn upload_file(
         .expect("Local file not found")
         .to_str()
         .unwrap();
-    let mut file = OpenOptions::new().read(true).open(&local_path)?;
+    let file = OpenOptions::new().read(true).open(&local_path).await?;
     let file_metadata = file
         .metadata()
+        .await
         .expect("Error accessing local file metadata");
     let remote_path = remote_path.unwrap_or(format!("/{}", file_name));
-    let mut bytes = Vec::new();
-    file.read_to_end(&mut bytes)?;
     let response = connector
         .upload_oneshot(
-            reqwest::Body::from(bytes),
+            reqwest::Body::from(file),
             remote_path.as_str(),
             file_metadata.len(),
         )

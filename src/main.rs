@@ -49,7 +49,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     match args.command {
         MeowithSubCommand::Auth => {
-            set_token(&content_store)?;
+            set_token(content_store)?;
         }
         MeowithSubCommand::Use {
             app_id,

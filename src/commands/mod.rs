@@ -6,6 +6,7 @@ use meowith_connector::error::{ConnectorError, ConnectorResponse, NodeClientErro
 use std::error::Error;
 
 pub mod all_directories;
+pub mod auth;
 pub mod bucket_info;
 pub mod delete_directory;
 pub mod delete_file;
@@ -17,7 +18,6 @@ pub mod rename_directory;
 pub mod rename_file;
 pub mod stat_resource;
 pub mod upload;
-pub mod auth;
 
 pub fn display_formatted_entities(
     entities: Vec<Entity>,
