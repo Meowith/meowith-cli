@@ -113,9 +113,9 @@ async fn main() -> Result<(), Box<dyn Error>> {
             let connector = connector(content_store)?;
             rename_directory(connector, from, to).await?;
         }
-        MeowithSubCommand::DeleteDirectory { path } => {
+        MeowithSubCommand::DeleteDirectory { path, recursive } => {
             let connector = connector(content_store)?;
-            delete_directory(connector, path).await?;
+            delete_directory(connector, path, recursive).await?;
         }
         MeowithSubCommand::Download { path, output } => {
             let connector = connector(content_store)?;

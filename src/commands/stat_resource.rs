@@ -10,7 +10,7 @@ pub async fn stat_resource(
     path: String,
     verbose: bool,
 ) -> Result<(), Box<dyn Error>> {
-    let response = connector.stat_resource(path).await;
+    let response = connector.stat_resource(&path).await;
 
     let entity = handle_error(response).unwrap();
     if verbose {

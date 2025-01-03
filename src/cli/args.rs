@@ -66,6 +66,8 @@ pub enum MeowithSubCommand {
     DeleteDirectory {
         #[arg(num_args(1), required = true)]
         path: String,
+        #[arg(short, long, action, required = false)]
+        recursive: bool,
     },
     #[clap(aliases = ["rf", "mv"])]
     /// Allows to rename (therefore also move) files

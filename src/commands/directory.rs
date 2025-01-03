@@ -10,7 +10,7 @@ pub async fn list_directory_command(
     range: Option<Range>,
     verbose: bool,
 ) -> Result<(), Box<dyn Error>> {
-    let response = connector.list_directory(path, range).await;
+    let response = connector.list_directory(&path, range).await;
 
     let entities = handle_error(response).unwrap().entities;
     display_formatted_entities(entities, verbose)
